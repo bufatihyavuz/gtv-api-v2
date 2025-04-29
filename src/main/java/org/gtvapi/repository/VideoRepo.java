@@ -11,4 +11,6 @@ public interface VideoRepo extends JpaRepository<Video,Long> {
 
     @Query(value = "SELECT v FROM Video v")
     List<VideoProjection> getAll();
+
+    List<VideoProjection> findVideosByCategory_Id(Long categoryId);
 }

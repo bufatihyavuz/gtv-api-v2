@@ -1,13 +1,9 @@
-package org.gtvapi.response;
-
-import org.gtvapi.entity.Category;
-import org.gtvapi.entity.Tag;
-import org.gtvapi.entity.User;
+package org.gtvapi.dto.responsedto;
 
 import java.time.LocalTime;
-import java.util.Set;
+import java.util.List;
 
-public class VideoResponse {
+public class VideoResponseDTO {
 
     private Long id;
     private String title;
@@ -17,6 +13,7 @@ public class VideoResponse {
     private Long size;
     private LocalTime createDate;
     private Boolean ytVideo;
+    private List<TagResponseDTO> tags;
 
     public Long getId() {
         return id;
@@ -82,4 +79,11 @@ public class VideoResponse {
         this.ytVideo = ytVideo;
     }
 
+    public List<TagResponseDTO> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<TagResponseDTO> tags) {
+        this.tags = tags;
+    }
 }

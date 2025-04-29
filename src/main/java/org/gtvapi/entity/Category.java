@@ -1,10 +1,12 @@
 package org.gtvapi.entity;
 
 import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+@NoArgsConstructor
 @Entity
 @Table(name = "category")
 public class Category {
@@ -16,8 +18,12 @@ public class Category {
     @Column(name = "name", length = Integer.MAX_VALUE)
     private String name;
 
-    @OneToMany(mappedBy = "categoryId")
+    @OneToMany(mappedBy = "category")
     private Set<Video> videos = new LinkedHashSet<>();
+
+    public Category(Long id) {
+        this.id = id;
+    }
 
     public Long getId() {
         return id;

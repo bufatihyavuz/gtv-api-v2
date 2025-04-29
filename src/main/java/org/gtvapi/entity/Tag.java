@@ -1,10 +1,12 @@
 package org.gtvapi.entity;
 
 import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+@NoArgsConstructor
 @Entity
 @Table(name = "tag")
 public class Tag {
@@ -21,6 +23,10 @@ public class Tag {
             joinColumns = @JoinColumn(name = "tag_id"),
             inverseJoinColumns = @JoinColumn(name = "video_id"))
     private Set<Video> videos = new LinkedHashSet<>();
+
+    public Tag(String name) {
+        this.name = name;
+    }
 
     public Long getId() {
         return id;
