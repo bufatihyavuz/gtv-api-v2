@@ -47,7 +47,7 @@ public class VideoService {
 
     public void saveVideo(VideoRequestDTO videoRequestDTO)  throws org.gtvapi.exception.IOException.WrongParameters,IOException {
         Video video = fillVideoDTOByYoutubeApi(videoRequestDTO.getYtVideoId());
-        video.setCategory(new Category(videoRequestDTO.getCategoryId()));
+        video.setCategory(videoRequestDTO.getCategoryId() != null ? new Category(videoRequestDTO.getCategoryId()) : null);
         videoRepo.save(video);
     }
 
@@ -68,7 +68,7 @@ public class VideoService {
         video.setView(Long.valueOf(statistics.getViewCount()));
         video.setDuration(contentDetails.getDuration());
         DateTimeFormatter f = DateTimeFormatter.ISO_INSTANT.withZone(ZoneId.systemDefault());
-        video.setCreateDate(LocalTime.from(LocalDateTime.parse(snippet.getPublishedAt(), f)));
+        video.setPublishDate(LocalTime.from(LocalDateTime.parse(snippet.getPublishedAt(), f)));
         video.setTags(!CollectionUtils.isEmpty(snippet.getTags()) ? snippet.getTags().stream().map(Tag::new).collect(Collectors.toUnmodifiableSet()) : null);
         video.setYtVideo(true);
         video.setUrl(ytVideoId);

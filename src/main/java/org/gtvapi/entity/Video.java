@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "video")
-public class Video {
+public class Video extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -29,8 +29,8 @@ public class Video {
     @Column(name = "size")
     private Long size;
 
-    @Column(name = "create_date")
-    private LocalTime createDate;
+    @Column(name = "publish_date")
+    private LocalTime publishDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
@@ -94,12 +94,12 @@ public class Video {
         this.size = size;
     }
 
-    public LocalTime getCreateDate() {
-        return createDate;
+    public LocalTime getPublishDate() {
+        return publishDate;
     }
 
-    public void setCreateDate(LocalTime createDate) {
-        this.createDate = createDate;
+    public void setPublishDate(LocalTime publishDate) {
+        this.publishDate = publishDate;
     }
 
     public Category getCategory() {
