@@ -15,10 +15,10 @@ public interface VideoProjection {
     public Long getView();
     public String getDuration();
     public Long getSize();
-    public LocalTime getCreateDate();
+    public LocalTime getPublishDate();
     public Boolean getYtVideo();
     public Category getCategoryId();
     public User getUserId();
-    public Set<Tag> getTags();
+    public Set<TagProjection> getTags();
 
 }
