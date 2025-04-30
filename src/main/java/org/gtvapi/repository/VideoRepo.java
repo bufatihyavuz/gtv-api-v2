@@ -1,7 +1,7 @@
 package org.gtvapi.repository;
 
 import org.gtvapi.entity.Video;
-import org.gtvapi.projection.VideoProjection;
+import org.gtvapi.dto.projection.VideoProjection;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

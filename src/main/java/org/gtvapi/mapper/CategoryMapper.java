@@ -4,7 +4,7 @@ import org.gtvapi.dto.requestdto.VideoRequestDTO;
 import org.gtvapi.dto.responsedto.CategoryResponseDTO;
 import org.gtvapi.entity.Category;
 import org.gtvapi.entity.Video;
-import org.gtvapi.projection.CategoryProjection;
+import org.gtvapi.dto.projection.CategoryProjection;
 import org.mapstruct.Mapper;
 
 import java.util.List;

@@ -1,7 +1,6 @@
-package org.gtvapi.projection;
+package org.gtvapi.dto.projection;
 
 import org.gtvapi.entity.Category;
-import org.gtvapi.entity.Tag;
 import org.gtvapi.entity.User;
 
 import java.time.LocalTime;

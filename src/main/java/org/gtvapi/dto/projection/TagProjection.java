@@ -1,4 +1,4 @@
-package org.gtvapi.projection;
+package org.gtvapi.dto.projection;
 
 public interface TagProjection {
 

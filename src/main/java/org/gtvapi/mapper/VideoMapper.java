@@ -3,7 +3,7 @@ package org.gtvapi.mapper;
 import org.gtvapi.dto.requestdto.VideoRequestDTO;
 import org.gtvapi.dto.responsedto.VideoResponseDTO;
 import org.gtvapi.entity.Video;
-import org.gtvapi.projection.VideoProjection;
+import org.gtvapi.dto.projection.VideoProjection;
 import org.mapstruct.Mapper;
 
 import java.util.List;

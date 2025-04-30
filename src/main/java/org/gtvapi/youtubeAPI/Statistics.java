@@ -1,5 +1,5 @@
 
-package org.gtvapi.dto.youtubeAPI;
+package org.gtvapi.youtubeAPI;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
