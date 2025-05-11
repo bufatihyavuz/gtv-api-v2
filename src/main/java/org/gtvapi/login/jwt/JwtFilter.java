@@ -1,5 +1,6 @@
 package org.gtvapi.login.jwt;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,9 +35,14 @@ public class JwtFilter extends OncePerRequestFilter {
         String token = null;
         String username = null;
 
-        if (header != null && header.startsWith("Bearer ")) {
-            token = header.substring(7);
-            username = jwtUtil.extractUsername(token);
+        try {
+            if (header != null && header.startsWith("Bearer ")) {
+                token = header.substring(7);
+                username = jwtUtil.extractUsername(token);
+            }
+        } catch (ExpiredJwtException e) {
+            // Token süresi dolmuşsa logla ve devam et (ya da response’a 401 dön)
+            System.out.println("Expired JWT: " + e.getMessage());
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
@@ -50,5 +56,12 @@ public class JwtFilter extends OncePerRequestFilter {
 
         chain.doFilter(request, response);
     }
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String path = request.getRequestURI();
+        return path.equals("/register") || path.equals("/auth/login");
+    }
+
 }
 
