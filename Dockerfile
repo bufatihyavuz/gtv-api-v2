@@ -1,14 +1,14 @@
-# Base image (OpenJDK 17)
-FROM eclipse-temurin:21-jdk
-
-# Working directory inside container
+# 1. aşama: Maven ile jar build et
+FROM maven:3.9.6-eclipse-temurin-21 AS build
 WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
 
-# Jar dosyasını container'a kopyala
-COPY target/gtv-api-v2-0.0.1-SNAPSHOT.jar app.jar
+# 2. aşama: sadece jar'ı alıp minimal image oluştur
+FROM eclipse-temurin:21-jdk
+WORKDIR /app
+COPY --from=build /app/target/gtv-api-v2-0.0.1-SNAPSHOT.jar app.jar
 
-# Uygulamanın çalışacağı port
 EXPOSE 8081
-
-# Uygulama başlatma komutu
 ENTRYPOINT ["java", "-jar", "app.jar"]
+
