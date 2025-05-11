@@ -1,6 +1,6 @@
 package org.gtvapi.dto.responsedto;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class VideoResponseDTO {
@@ -8,10 +8,10 @@ public class VideoResponseDTO {
     private Long id;
     private String title;
     private String url;
-    private Long view;
+    private Long views;
     private String duration;
     private Long size;
-    private LocalTime publishDate;
+    private LocalDateTime publishDate;
     private Boolean ytVideo;
     private List<TagResponseDTO> tags;
 
@@ -39,12 +39,12 @@ public class VideoResponseDTO {
         this.url = url;
     }
 
-    public Long getView() {
-        return view;
+    public Long getViews() {
+        return views;
     }
 
-    public void setView(Long view) {
-        this.view = view;
+    public void setViews(Long views) {
+        this.views = views;
     }
 
     public String getDuration() {
@@ -63,11 +63,11 @@ public class VideoResponseDTO {
         this.size = size;
     }
 
-    public LocalTime getPublishDate() {
+    public LocalDateTime getPublishDate() {
         return publishDate;
     }
 
-    public void setPublishDate(LocalTime publishDate) {
+    public void setPublishDate(LocalDateTime publishDate) {
         this.publishDate = publishDate;
     }
 

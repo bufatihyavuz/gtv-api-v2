@@ -1,19 +1,20 @@
 package org.gtvapi.service;
 
 import ch.qos.logback.core.util.StringUtil;
+import org.gtvapi.dto.projection.VideoProjection;
 import org.gtvapi.dto.requestdto.VideoRequestDTO;
 import org.gtvapi.dto.responsedto.VideoResponseDTO;
-import org.gtvapi.youtubeAPI.ContentDetails;
-import org.gtvapi.youtubeAPI.Snippet;
-import org.gtvapi.youtubeAPI.Statistics;
-import org.gtvapi.youtubeAPI.YtVideoDTO;
 import org.gtvapi.entity.Category;
 import org.gtvapi.entity.Tag;
 import org.gtvapi.entity.Video;
 import org.gtvapi.mapper.VideoMapper;
-import org.gtvapi.dto.projection.VideoProjection;
 import org.gtvapi.repository.VideoRepo;
+import org.gtvapi.util.DateUtil;
 import org.gtvapi.util.YotubeUtil;
+import org.gtvapi.youtubeAPI.ContentDetails;
+import org.gtvapi.youtubeAPI.Snippet;
+import org.gtvapi.youtubeAPI.Statistics;
+import org.gtvapi.youtubeAPI.YtVideoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -21,8 +22,6 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -68,7 +67,7 @@ public class VideoService {
         video.setView(Long.valueOf(statistics.getViewCount()));
         video.setDuration(contentDetails.getDuration());
         DateTimeFormatter f = DateTimeFormatter.ISO_INSTANT.withZone(ZoneId.systemDefault());
-        video.setPublishDate(LocalTime.from(LocalDateTime.parse(snippet.getPublishedAt(), f)));
+        video.setPublishDate(DateUtil.toLocalTime(snippet.getPublishedAt()));
         video.setTags(!CollectionUtils.isEmpty(snippet.getTags()) ? snippet.getTags().stream().map(Tag::new).collect(Collectors.toUnmodifiableSet()) : null);
         video.setYtVideo(true);
         video.setUrl(ytVideoId);

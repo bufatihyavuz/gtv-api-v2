@@ -3,7 +3,7 @@ package org.gtvapi.dto.projection;
 import org.gtvapi.entity.Category;
 import org.gtvapi.entity.User;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 public interface VideoProjection {
@@ -14,7 +14,7 @@ public interface VideoProjection {
     public Long getView();
     public String getDuration();
     public Long getSize();
-    public LocalTime getPublishDate();
+    public LocalDateTime getPublishDate();
     public Boolean getYtVideo();
     public Category getCategoryId();
     public User getUserId();

@@ -3,19 +3,19 @@ package org.gtvapi.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 @MappedSuperclass
 public class BaseEntity {
 
     @Column(name = "cre_date")
-    private LocalTime createDate;
+    private LocalDateTime createDate;
 
     @Column(name = "cre_by")
     private String creBy;
 
     @Column(name = "mod_date")
-    private LocalTime modDate;
+    private LocalDateTime modDate;
 
     @Column(name = "mod_by")
     private String modBy;
@@ -23,11 +23,11 @@ public class BaseEntity {
     @Column(name = "record_status")
     private Integer recordStatus;
 
-    public LocalTime getCreateDate() {
+    public LocalDateTime getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(LocalTime createDate) {
+    public void setCreateDate(LocalDateTime createDate) {
         this.createDate = createDate;
     }
 
@@ -39,11 +39,11 @@ public class BaseEntity {
         this.creBy = creBy;
     }
 
-    public LocalTime getModDate() {
+    public LocalDateTime getModDate() {
         return modDate;
     }
 
-    public void setModDate(LocalTime modDate) {
+    public void setModDate(LocalDateTime modDate) {
         this.modDate = modDate;
     }
 

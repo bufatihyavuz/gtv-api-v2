@@ -2,7 +2,7 @@ package org.gtvapi.entity;
 
 import jakarta.persistence.*;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -30,7 +30,7 @@ public class Video extends BaseEntity {
     private Long size;
 
     @Column(name = "publish_date")
-    private LocalTime publishDate;
+    private LocalDateTime publishDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
@@ -94,11 +94,11 @@ public class Video extends BaseEntity {
         this.size = size;
     }
 
-    public LocalTime getPublishDate() {
+    public LocalDateTime getPublishDate() {
         return publishDate;
     }
 
-    public void setPublishDate(LocalTime publishDate) {
+    public void setPublishDate(LocalDateTime publishDate) {
         this.publishDate = publishDate;
     }
 
