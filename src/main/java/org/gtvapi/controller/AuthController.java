@@ -1,13 +1,11 @@
 package org.gtvapi.controller;
 
-import org.gtvapi.login.jwt.JwtUtil;
-import org.gtvapi.login.jwt.model.AuthRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import org.gtvapi.login.jwt.model.AuthResponse;
+import org.gtvapi.login.jwt.model.LoginRequest;
+import org.gtvapi.service.AuthService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,24 +16,30 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final AuthenticationManager authManager;
-    private final JwtUtil jwtUtil;
+    private final AuthService authService;
 
-    public AuthController(AuthenticationManager authManager, JwtUtil jwtUtil) {
-        this.authManager = authManager;
-        this.jwtUtil = jwtUtil;
+
+    public AuthController(AuthService authService) {
+        this.authService = authService;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AuthRequest request) {
+    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         try {
-            Authentication auth = authManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-            String token = jwtUtil.generateToken(request.getUsername());
-            return ResponseEntity.ok(new AuthResponse(token));
+            AuthResponse authResponse = authService.getAuthResponse(request);
+            return ResponseEntity.ok(authResponse);
         } catch (AuthenticationException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout() {
+        // (isteğe bağlı) token blackliste alınabilir
+        System.out.println("logout yapıldı");
+        return ResponseEntity.ok().body("Logged out");
+    }
+
+
 }
 

@@ -1,5 +1,6 @@
 package org.gtvapi.login.jwt;
 
+import org.gtvapi.dto.projection.UserProjection;
 import org.gtvapi.entity.User;
 import org.gtvapi.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,13 +22,13 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // Kullanıcıyı veritabanından alıyoruz
-        User user = userRepository.findByUsername(username)
+        UserProjection userProjection = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Kullanıcı bulunamadı: " + username));
 
         // Burada, veritabanındaki kullanıcı bilgilerini dönüyoruz
         return org.springframework.security.core.userdetails.User.builder()
-                .username(user.getUsername())
-                .password(user.getPassword()) // Şifreyi doğru şekilde alıyoruz
+                .username(userProjection.getUsername())
+                .password(userProjection.getPassword()) // Şifreyi doğru şekilde alıyoruz
                 //.roles(user.getRoles()) // Kullanıcının rollerini de burada belirtmelisiniz
                 .build();
     }

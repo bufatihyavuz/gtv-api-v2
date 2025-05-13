@@ -1,17 +1,16 @@
 package org.gtvapi.login.jwt.model;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.gtvapi.dto.responsedto.UserResponseDTO;
 
 @Getter
 @Setter
+@Builder
 @RequiredArgsConstructor
+@AllArgsConstructor
 public class AuthResponse {
 
     private String token;
+    private UserResponseDTO user;
 
-    public AuthResponse(String token) {
-        this.token = token;
-    }
 }
