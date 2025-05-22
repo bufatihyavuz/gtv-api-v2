@@ -1,5 +1,8 @@
 package org.gtvapi.dto.responsedto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.core.io.Resource;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -7,13 +10,19 @@ public class VideoResponseDTO {
 
     private Long id;
     private String title;
-    private String url;
-    private Long views;
+    private String ytVideoId;
+    private Long view;
     private String duration;
     private Long size;
     private LocalDateTime publishDate;
     private Boolean ytVideo;
     private List<TagResponseDTO> tags;
+    private String channelName;
+    private String channelIconName;
+    private Resource channelIcon;
+    private String thumbnail;
+    private Integer rate;
+    private CategoryResponseDTO category;
 
     public Long getId() {
         return id;
@@ -31,20 +40,20 @@ public class VideoResponseDTO {
         this.title = title;
     }
 
-    public String getUrl() {
-        return url;
+    public String getYtVideoId() {
+        return ytVideoId;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setYtVideoId(String ytVideoId) {
+        this.ytVideoId = ytVideoId;
     }
 
-    public Long getViews() {
-        return views;
+    public Long getView() {
+        return view;
     }
 
-    public void setViews(Long views) {
-        this.views = views;
+    public void setView(Long view) {
+        this.view = view;
     }
 
     public String getDuration() {
@@ -85,5 +94,53 @@ public class VideoResponseDTO {
 
     public void setTags(List<TagResponseDTO> tags) {
         this.tags = tags;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public Integer getRate() {
+        return rate;
+    }
+
+    public void setRate(Integer rate) {
+        this.rate = rate;
+    }
+
+    public CategoryResponseDTO getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryResponseDTO category) {
+        this.category = category;
+    }
+
+    public String getChannelName() {
+        return channelName;
+    }
+
+    public void setChannelName(String channelName) {
+        this.channelName = channelName;
+    }
+
+    public String getChannelIconName() {
+        return channelIconName;
+    }
+
+    public void setChannelIconName(String channelIconName) {
+        this.channelIconName = channelIconName;
+    }
+
+    public Resource getChannelIcon() {
+        return channelIcon;
+    }
+
+    public void setChannelIcon(Resource channelIcon) {
+        this.channelIcon = channelIcon;
     }
 }

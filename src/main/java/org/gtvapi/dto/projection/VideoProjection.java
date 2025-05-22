@@ -10,7 +10,7 @@ public interface VideoProjection {
 
     public Long getId();
     public String getTitle();
-    public String getUrl();
+    public String getYtVideoId();
     public Long getView();
     public String getDuration();
     public Long getSize();
@@ -19,5 +19,10 @@ public interface VideoProjection {
     public Category getCategoryId();
     public User getUserId();
     public Set<TagProjection> getTags();
+    public String getChannelName();
+    public String getChannelIconName();
+    public String getThumbnail();
+    public Integer getRate();
+    public CategoryProjection getCategory();
 
 }

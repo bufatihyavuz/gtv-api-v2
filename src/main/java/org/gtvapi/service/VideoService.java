@@ -70,7 +70,7 @@ public class VideoService {
         video.setPublishDate(DateUtil.toLocalTime(snippet.getPublishedAt()));
         video.setTags(!CollectionUtils.isEmpty(snippet.getTags()) ? snippet.getTags().stream().map(Tag::new).collect(Collectors.toUnmodifiableSet()) : null);
         video.setYtVideo(true);
-        video.setUrl(ytVideoId);
+        video.setYtVideoId(ytVideoId);
         return video;
     }
 

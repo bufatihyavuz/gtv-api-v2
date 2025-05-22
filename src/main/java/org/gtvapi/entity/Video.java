@@ -14,16 +14,16 @@ public class Video extends BaseEntity {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "title", length = Integer.MAX_VALUE)
+    @Column(name = "title")
     private String title;
 
-    @Column(name = "url", length = Integer.MAX_VALUE)
-    private String url;
+    @Column(name = "ytVideoId")
+    private String ytVideoId;
 
     @Column(name = "view")
     private Long view;
 
-    @Column(name = "duration", length = Integer.MAX_VALUE)
+    @Column(name = "duration")
     private String duration;
 
     @Column(name = "size")
@@ -32,6 +32,21 @@ public class Video extends BaseEntity {
     @Column(name = "publish_date")
     private LocalDateTime publishDate;
 
+    @Column(name = "yt_video")
+    private Boolean ytVideo;
+
+    @Column(name = "channel_name")
+    private String channelName;
+
+    @Column(name = "channel_icon")
+    private String channelIconName;
+
+    @Column(name = "thumbnail")
+    private String thumbnail;
+
+    @Column(name = "rate")
+    private Integer rate;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
@@ -39,9 +54,6 @@ public class Video extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User userId;
-
-    @Column(name = "yt_video")
-    private Boolean ytVideo;
 
     @ManyToMany(mappedBy = "videos")
     private Set<Tag> tags = new LinkedHashSet<>();
@@ -62,12 +74,12 @@ public class Video extends BaseEntity {
         this.title = title;
     }
 
-    public String getUrl() {
-        return url;
+    public String getYtVideoId() {
+        return ytVideoId;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setYtVideoId(String url) {
+        this.ytVideoId = url;
     }
 
     public Long getView() {
@@ -134,4 +146,35 @@ public class Video extends BaseEntity {
         this.tags = tags;
     }
 
+    public String getChannelName() {
+        return channelName;
+    }
+
+    public void setChannelName(String channelName) {
+        this.channelName = channelName;
+    }
+
+    public String getChannelIcon() {
+        return channelIconName;
+    }
+
+    public void setChannelIcon(String channelIconName) {
+        this.channelIconName = channelIconName;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public Integer getRate() {
+        return rate;
+    }
+
+    public void setRate(Integer rate) {
+        this.rate = rate;
+    }
 }
