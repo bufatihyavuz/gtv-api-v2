@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/images")
@@ -21,11 +18,13 @@ public class ImageController {
 
     @GetMapping("channel-icon/{imageName}")
     public ResponseEntity<Resource> getVideosByCategory(@PathVariable String imageName){
+
         Resource fileResource = imageService.getVideosByCategoryId(imageName);
 
         return ResponseEntity.ok()
-                .header(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*") // CORS header!
-                .contentType(MediaType.IMAGE_JPEG) // veya JPEG ise image/jpeg
+    /*            .header(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*") // CORS
+                .header("Cross-Origin-Resource-Policy", "cross-origin") // 🔥 asıl bu lazım!
+                .contentType(MediaType.IMAGE_JPEG) // veya image/png*/
                 .body(fileResource);
 
     }
