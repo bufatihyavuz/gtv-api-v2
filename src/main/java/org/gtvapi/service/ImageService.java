@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ImageService {
 
+    private final DirectoryUtil directoryUtil;
+
     public Resource getVideosByCategoryId(String imageName) {
-        return DirectoryUtil.getChannelIconFromFile(imageName);
+        return directoryUtil.getChannelIconFromFile(imageName);
     }
 }

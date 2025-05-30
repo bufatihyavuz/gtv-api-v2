@@ -1,6 +1,8 @@
 package org.gtvapi.service;
 
 import ch.qos.logback.core.util.StringUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.gtvapi.dto.projection.VideoProjection;
 import org.gtvapi.dto.requestdto.VideoRequestDTO;
 import org.gtvapi.dto.responsedto.VideoResponseDTO;
@@ -10,6 +12,7 @@ import org.gtvapi.entity.Video;
 import org.gtvapi.mapper.VideoMapper;
 import org.gtvapi.repository.VideoRepo;
 import org.gtvapi.util.DateUtil;
+import org.gtvapi.util.DirectoryUtil;
 import org.gtvapi.util.YotubeUtil;
 import org.gtvapi.youtubeAPI.ContentDetails;
 import org.gtvapi.youtubeAPI.Snippet;
@@ -30,6 +33,9 @@ import java.util.stream.Collectors;
 @Service
 public class VideoService {
 
+    private static final Logger logger = LogManager.getLogger(VideoService.class);
+
+
     private final VideoRepo videoRepo;
     private final VideoMapper videoMapper;
 
@@ -39,8 +45,9 @@ public class VideoService {
         this.videoMapper = videoMapper;
     }
 
-    public List<VideoResponseDTO> getVideos(){
-        List<VideoProjection> projections = videoRepo.getAll();
+    public List<VideoResponseDTO> getVideos(String categoryCode){
+        logger.info("videoservice");
+        List<VideoProjection> projections = videoRepo.getAll(categoryCode);
         return videoMapper.toResponseDTOList(projections);
     }
 

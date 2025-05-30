@@ -15,7 +15,10 @@ public class Category extends BaseEntity {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "name", length = Integer.MAX_VALUE)
+    @Column(name = "code")
+    private String code;
+
+    @Column(name = "name")
     private String name;
 
     @OneToMany(mappedBy = "category")
@@ -49,4 +52,11 @@ public class Category extends BaseEntity {
         this.videos = videos;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 }

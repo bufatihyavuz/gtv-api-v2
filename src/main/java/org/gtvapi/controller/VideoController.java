@@ -20,8 +20,8 @@ public class VideoController {
     private final VideoService videoService;
 
     @GetMapping
-    public ResponseEntity<List<VideoResponseDTO>> getAllVideos(){
-        return new ResponseEntity<>(videoService.getVideos(), HttpStatus.OK);
+    public ResponseEntity<List<VideoResponseDTO>> getAllVideos(@RequestParam(value = "categoryCode",required = false) String categoryCode){
+        return new ResponseEntity<>(videoService.getVideos(categoryCode), HttpStatus.OK);
     }
 
     @PostMapping
