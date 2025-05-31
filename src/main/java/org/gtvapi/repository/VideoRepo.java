@@ -1,7 +1,7 @@
 package org.gtvapi.repository;
 
-import org.gtvapi.entity.Video;
 import org.gtvapi.dto.projection.VideoProjection;
+import org.gtvapi.entity.Video;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,5 +15,4 @@ public interface VideoRepo extends JpaRepository<Video,Long> {
             " v.category.code = :categoryCode OR :categoryCode IS null")
     List<VideoProjection> getAll(String categoryCode);
 
-    List<VideoProjection> findVideosByCategory_Id(Long categoryId);
 }

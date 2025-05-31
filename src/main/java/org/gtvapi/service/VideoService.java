@@ -12,7 +12,6 @@ import org.gtvapi.entity.Video;
 import org.gtvapi.mapper.VideoMapper;
 import org.gtvapi.repository.VideoRepo;
 import org.gtvapi.util.DateUtil;
-import org.gtvapi.util.DirectoryUtil;
 import org.gtvapi.util.YotubeUtil;
 import org.gtvapi.youtubeAPI.ContentDetails;
 import org.gtvapi.youtubeAPI.Snippet;
@@ -88,8 +87,4 @@ public class VideoService {
         return ytVideoDTO;
     }
 
-    public List<VideoResponseDTO> getVideosByCategoryId(Long categoryId) {
-        List<VideoProjection> videoList = videoRepo.findVideosByCategory_Id(categoryId);
-        return videoMapper.toResponseDTOList(videoList);
-    }
 }
