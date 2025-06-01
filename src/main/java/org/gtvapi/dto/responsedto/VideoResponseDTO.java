@@ -23,6 +23,7 @@ public class VideoResponseDTO {
     private String thumbnail;
     private Integer rate;
     private CategoryResponseDTO category;
+    private UserResponseDTO user;
 
     public Long getId() {
         return id;
@@ -142,5 +143,13 @@ public class VideoResponseDTO {
 
     public void setChannelIcon(Resource channelIcon) {
         this.channelIcon = channelIcon;
+    }
+
+    public UserResponseDTO getUser() {
+        return user;
+    }
+
+    public void setUser(UserResponseDTO user) {
+        this.user = user;
     }
 }

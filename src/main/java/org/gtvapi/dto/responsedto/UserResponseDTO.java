@@ -7,6 +7,7 @@ public class UserResponseDTO {
 
     private Long id;
     private String username;
+    private Boolean approved;
 
     public Long getId() {
         return id;
@@ -22,6 +23,14 @@ public class UserResponseDTO {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Boolean getApproved() {
+        return approved;
+    }
+
+    public void setApproved(Boolean approved) {
+        this.approved = approved;
     }
 
     public UserResponseDTO(String username) {

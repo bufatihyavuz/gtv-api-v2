@@ -16,8 +16,7 @@ public interface VideoProjection {
     public Long getSize();
     public LocalDateTime getPublishDate();
     public Boolean getYtVideo();
-    public Category getCategoryId();
-    public User getUserId();
+    public UserProjection getUser();
     public Set<TagProjection> getTags();
     public String getChannelName();
     public String getChannelIconName();

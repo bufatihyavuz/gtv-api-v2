@@ -35,7 +35,10 @@ public class User extends BaseEntity {
     @Column(name = "email")
     private String email;
 
-    @OneToMany(mappedBy = "userId")
+    @Column(name = "approved")
+    private Boolean approved;
+
+    @OneToMany(mappedBy = "user")
     private Set<Video> videos = new LinkedHashSet<>();
 
     public User(Long id) {

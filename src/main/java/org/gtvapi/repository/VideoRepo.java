@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface VideoRepo extends JpaRepository<Video,Long> {
 
-    @EntityGraph(attributePaths =  {"tags", "category"})
+    @EntityGraph(attributePaths =  {"tags", "category", "user"})
     @Query(value = "SELECT v FROM Video v WHERE " +
             " v.category.code = :categoryCode OR :categoryCode IS null")
     List<VideoProjection> getAll(String categoryCode);

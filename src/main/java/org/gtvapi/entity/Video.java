@@ -57,7 +57,7 @@ public class Video extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User userId;
+    private User user;
 
     @ManyToMany(mappedBy = "videos")
     private Set<Tag> tags = new LinkedHashSet<>();
@@ -130,12 +130,12 @@ public class Video extends BaseEntity {
         this.category = categoryId;
     }
 
-    public User getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(User userId) {
-        this.userId = userId;
+    public void setUser(User userId) {
+        this.user = userId;
     }
 
     public Boolean getYtVideo() {
