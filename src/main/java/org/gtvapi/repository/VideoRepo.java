@@ -17,6 +17,9 @@ public interface VideoRepo extends JpaRepository<Video,Long> {
     List<VideoProjection> getAll(String categoryCode);
 
     @Query("SELECT ul.video FROM UserLike ul WHERE ul.user.id = :userId")
-    List<VideoProjection> findVideosByUserId(@Param("userId") Long userId);
+    List<VideoProjection> findLikedVideosByUserId(@Param("userId") Long userId);
+
+    @Query("SELECT uf.followed.videos FROM UserFollow uf WHERE uf.follower.id = :userId")
+    List<VideoProjection> fetchVideosFromFollowedUsers(@Param("userId") Long userId);
 
 }
