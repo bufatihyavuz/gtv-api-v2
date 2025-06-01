@@ -22,13 +22,18 @@ public class UserFollowService {
 
         User followerUser = UserContext.getCurrentUser();
 
-        UserFollow userFollow = getUserFollow(followerUser.getId(), followedId);
+        UserFollow userFollow = isUserFollow(followerUser.getId(), followedId);
 
         if(userFollow != null){
             userFollowRepo.delete(userFollow);
         }else {
             saveUserFollow(followerUser.getId(), followedId);
         }
+    }
+
+    public Boolean isFollowing(Long followedId) {
+        User followerUser = UserContext.getCurrentUser();
+        return isUserFollow(followerUser.getId(), followedId) != null;
     }
 
     private void saveUserFollow(Long followedId, Long followerId) {
@@ -39,13 +44,8 @@ public class UserFollowService {
         userFollowRepo.save(userFollow);
     }
 
-    public UserFollow getUserFollow(Long followerId, Long followedId) {
+    private UserFollow isUserFollow(Long followerId, Long followedId) {
         return userFollowRepo.findByFollowerIdAndFollowedId(followerId, followedId);
-    }
-
-    public Boolean isUserFollow(Long followedId) {
-        User followerUser = UserContext.getCurrentUser();
-        return getUserFollow(followerUser.getId(), followedId) != null;
     }
 
 }
