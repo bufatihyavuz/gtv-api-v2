@@ -19,7 +19,7 @@ public class UserLikeService {
     private final UserLikeRepo userLikeRepo;
 
     public void likeVideo(Long userId, Long videoId) {
-        UserLike userLike = UserLike.builder().video(new Video(videoId)).user(new User(userId)).liked(true).build();
+        UserLike userLike = UserLike.builder().video(new Video(videoId)).user(new User(userId)).build();
         userLikeRepo.save(userLike);
     }
 

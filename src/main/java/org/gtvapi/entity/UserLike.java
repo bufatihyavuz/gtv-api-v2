@@ -17,9 +17,6 @@ public class UserLike extends BaseEntity {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "liked", nullable = false)
-    private Boolean liked;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
@@ -38,14 +35,6 @@ public class UserLike extends BaseEntity {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Boolean getLiked() {
-        return liked;
-    }
-
-    public void setLiked(Boolean liked) {
-        this.liked = liked;
     }
 
     public User getUser() {

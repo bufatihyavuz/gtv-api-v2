@@ -40,4 +40,9 @@ public class VideoController {
         return ResponseEntity.ok(videoService.isLikeVideo(videoId));
     }
 
+    @GetMapping("my-like")
+    public ResponseEntity<List<VideoResponseDTO>> myLikeVideos() {
+        return ResponseEntity.ok(videoService.myLikeVideos());
+    }
+
 }

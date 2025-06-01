@@ -103,4 +103,10 @@ public class VideoService {
         UserLike userLike = userLikeService.getUserLike(user.getId(), videoId);
         return userLike != null;
     }
+
+    public List<VideoResponseDTO> myLikeVideos() {
+        User user = UserContext.getCurrentUser();
+        return videoMapper.toResponseDTOList(videoRepo.findVideosByUserId(user.getId()));
+    }
+
 }
