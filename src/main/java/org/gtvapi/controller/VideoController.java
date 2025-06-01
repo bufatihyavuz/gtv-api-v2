@@ -24,9 +24,20 @@ public class VideoController {
     }
 
     @PostMapping
-    public ResponseEntity<String> saveVideo(@RequestBody VideoRequestDTO videoRequestDTO) throws IOException, org.gtvapi.exception.IOException.WrongParameters {
+    public ResponseEntity<String> saveVideo(@RequestBody VideoRequestDTO videoRequestDTO){
         videoService.saveVideo(videoRequestDTO);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("like")
+    public ResponseEntity<String> likeVideo(@RequestParam(value = "videoId")  Long videoId) {
+        videoService.likeVideo(videoId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("like")
+    public ResponseEntity<Boolean> isLikeVideo(@RequestParam(value = "videoId")  Long videoId) {
+        return ResponseEntity.ok(videoService.isLikeVideo(videoId));
     }
 
 }

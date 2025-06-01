@@ -1,11 +1,15 @@
 package org.gtvapi.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "video")
 public class Video extends BaseEntity {
@@ -57,6 +61,10 @@ public class Video extends BaseEntity {
 
     @ManyToMany(mappedBy = "videos")
     private Set<Tag> tags = new LinkedHashSet<>();
+
+    public Video(Long id) {
+        this.id = id;
+    }
 
     public Long getId() {
         return id;

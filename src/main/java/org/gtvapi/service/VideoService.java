@@ -1,14 +1,14 @@
 package org.gtvapi.service;
 
 import ch.qos.logback.core.util.StringUtil;
+import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.gtvapi.common.UserContext;
 import org.gtvapi.dto.projection.VideoProjection;
 import org.gtvapi.dto.requestdto.VideoRequestDTO;
 import org.gtvapi.dto.responsedto.VideoResponseDTO;
-import org.gtvapi.entity.Category;
-import org.gtvapi.entity.Tag;
-import org.gtvapi.entity.Video;
+import org.gtvapi.entity.*;
 import org.gtvapi.mapper.VideoMapper;
 import org.gtvapi.repository.VideoRepo;
 import org.gtvapi.util.DateUtil;
@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class VideoService {
 
     private static final Logger logger = LogManager.getLogger(VideoService.class);
@@ -37,12 +38,7 @@ public class VideoService {
 
     private final VideoRepo videoRepo;
     private final VideoMapper videoMapper;
-
-    @Autowired
-    public VideoService(VideoRepo videoRepo, VideoMapper videoMapper) {
-        this.videoRepo = videoRepo;
-        this.videoMapper = videoMapper;
-    }
+    private final UserLikeService userLikeService;
 
     public List<VideoResponseDTO> getVideos(String categoryCode){
         logger.info("videoservice");
@@ -50,34 +46,39 @@ public class VideoService {
         return videoMapper.toResponseDTOList(projections);
     }
 
-    public void saveVideo(VideoRequestDTO videoRequestDTO)  throws org.gtvapi.exception.IOException.WrongParameters,IOException {
+    public void saveVideo(VideoRequestDTO videoRequestDTO){
         Video video = fillVideoDTOByYoutubeApi(videoRequestDTO.getYtVideoId());
         video.setCategory(videoRequestDTO.getCategoryId() != null ? new Category(videoRequestDTO.getCategoryId()) : null);
         videoRepo.save(video);
     }
 
-    private Video fillVideoDTOByYoutubeApi(String ytVideoId) throws org.gtvapi.exception.IOException.WrongParameters, IOException {
-        if(StringUtil.isNullOrEmpty(ytVideoId)){
-            throw new org.gtvapi.exception.IOException.WrongParameters("WrongParameters Exception");
+    private Video fillVideoDTOByYoutubeApi(String ytVideoId) {
+
+        try {
+            if(StringUtil.isNullOrEmpty(ytVideoId)){
+                throw new org.gtvapi.exception.IOException.WrongParameters("WrongParameters Exception");
+            }
+
+            String requestURL = YotubeUtil.generateYoutubeApiRequestURL(ytVideoId,"snippet,statistics,contentDetails");
+            ResponseEntity<YtVideoDTO> ytVideoDTO = callYoutubeAPI(requestURL);
+
+            ContentDetails contentDetails = ytVideoDTO.getBody().getItems().get(0).getContentDetails();
+            Snippet snippet = ytVideoDTO.getBody().getItems().get(0).getSnippet();
+            Statistics statistics = ytVideoDTO.getBody().getItems().get(0).getStatistics();
+
+            Video video = new Video();
+            video.setTitle(snippet.getTitle());
+            video.setView(Long.valueOf(statistics.getViewCount()));
+            video.setDuration(contentDetails.getDuration());
+            DateTimeFormatter f = DateTimeFormatter.ISO_INSTANT.withZone(ZoneId.systemDefault());
+            video.setPublishDate(DateUtil.toLocalTime(snippet.getPublishedAt()));
+            video.setTags(!CollectionUtils.isEmpty(snippet.getTags()) ? snippet.getTags().stream().map(Tag::new).collect(Collectors.toUnmodifiableSet()) : null);
+            video.setYtVideo(true);
+            video.setYtVideoId(ytVideoId);
+            return video;
+        } catch (org.gtvapi.exception.IOException.WrongParameters | IOException e) {
+            throw new RuntimeException(e);
         }
-
-        String requestURL = YotubeUtil.generateYoutubeApiRequestURL(ytVideoId,"snippet,statistics,contentDetails");
-        ResponseEntity<YtVideoDTO> ytVideoDTO = callYoutubeAPI(requestURL);
-
-        ContentDetails contentDetails = ytVideoDTO.getBody().getItems().get(0).getContentDetails();
-        Snippet snippet = ytVideoDTO.getBody().getItems().get(0).getSnippet();
-        Statistics statistics = ytVideoDTO.getBody().getItems().get(0).getStatistics();
-
-        Video video = new Video();
-        video.setTitle(snippet.getTitle());
-        video.setView(Long.valueOf(statistics.getViewCount()));
-        video.setDuration(contentDetails.getDuration());
-        DateTimeFormatter f = DateTimeFormatter.ISO_INSTANT.withZone(ZoneId.systemDefault());
-        video.setPublishDate(DateUtil.toLocalTime(snippet.getPublishedAt()));
-        video.setTags(!CollectionUtils.isEmpty(snippet.getTags()) ? snippet.getTags().stream().map(Tag::new).collect(Collectors.toUnmodifiableSet()) : null);
-        video.setYtVideo(true);
-        video.setYtVideoId(ytVideoId);
-        return video;
     }
 
     private ResponseEntity<YtVideoDTO> callYoutubeAPI(String requestURL) throws IOException {
@@ -87,4 +88,19 @@ public class VideoService {
         return ytVideoDTO;
     }
 
+    public void likeVideo(Long videoId) {
+        User user = UserContext.getCurrentUser();
+        UserLike userLike = userLikeService.getUserLike(user.getId(), videoId);
+        if(userLike != null){
+            userLikeService.dislikeVideo(userLike.getId());
+        }else {
+            userLikeService.likeVideo(user.getId(), videoId);
+        }
+    }
+
+    public Boolean isLikeVideo(Long videoId) {
+        User user = UserContext.getCurrentUser();
+        UserLike userLike = userLikeService.getUserLike(user.getId(), videoId);
+        return userLike != null;
+    }
 }

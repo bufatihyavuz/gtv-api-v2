@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.gtvapi.conf.ApplicationProperties;
 import org.springframework.stereotype.Component;
 import java.util.Date;
+import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
@@ -12,8 +13,9 @@ public class JwtUtil {
 
     private final ApplicationProperties applicationProperties;
 
-    public String generateToken(String username) {
+    public String generateToken(Map<String, Object> claims, String username) {
         return Jwts.builder()
+                .setClaims(claims)
                 .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + applicationProperties.getExpirationTime()))
@@ -23,6 +25,10 @@ public class JwtUtil {
 
     public String extractUsername(String token) {
         return Jwts.parser().setSigningKey(applicationProperties.getSecret()).parseClaimsJws(token).getBody().getSubject();
+    }
+
+    public Claims extractAllClaims(String token) {
+        return Jwts.parser().setSigningKey(applicationProperties.getSecret()).parseClaimsJws(token).getBody();
     }
 
     public boolean validateToken(String token) {

@@ -38,6 +38,10 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "userId")
     private Set<Video> videos = new LinkedHashSet<>();
 
+    public User(Long id) {
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }
