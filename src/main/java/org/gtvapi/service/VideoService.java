@@ -47,8 +47,10 @@ public class VideoService {
     }
 
     public void saveVideo(VideoRequestDTO videoRequestDTO){
+        User user = UserContext.getCurrentUser();
         Video video = fillVideoDTOByYoutubeApi(videoRequestDTO.getYtVideoId());
         video.setCategory(videoRequestDTO.getCategoryId() != null ? new Category(videoRequestDTO.getCategoryId()) : null);
+        video.setUser(user);
         videoRepo.save(video);
     }
 
@@ -75,6 +77,7 @@ public class VideoService {
             video.setTags(!CollectionUtils.isEmpty(snippet.getTags()) ? snippet.getTags().stream().map(Tag::new).collect(Collectors.toUnmodifiableSet()) : null);
             video.setYtVideo(true);
             video.setYtVideoId(ytVideoId);
+            video.setThumbnail(snippet.getThumbnails().getMedium().getUrl());
             return video;
         } catch (org.gtvapi.exception.IOException.WrongParameters | IOException e) {
             throw new RuntimeException(e);
