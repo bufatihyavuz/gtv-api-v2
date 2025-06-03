@@ -35,6 +35,12 @@ public class User extends BaseEntity {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "channel_name")
+    private String channelName;
+
+    @Column(name = "channel_icon")
+    private String channelIconName;
+
     @Column(name = "approved")
     private Boolean approved;
 
@@ -99,5 +105,21 @@ public class User extends BaseEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getChannelName() {
+        return channelName;
+    }
+
+    public void setChannelName(String channelName) {
+        this.channelName = channelName;
+    }
+
+    public String getChannelIcon() {
+        return channelIconName;
+    }
+
+    public void setChannelIcon(String channelIconName) {
+        this.channelIconName = channelIconName;
     }
 }

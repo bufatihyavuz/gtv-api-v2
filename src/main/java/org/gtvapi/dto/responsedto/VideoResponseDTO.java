@@ -17,8 +17,6 @@ public class VideoResponseDTO {
     private LocalDateTime publishDate;
     private Boolean ytVideo;
     private List<TagResponseDTO> tags;
-    private String channelName;
-    private String channelIconName;
     private Resource channelIcon;
     private String thumbnail;
     private Integer rate;
@@ -119,22 +117,6 @@ public class VideoResponseDTO {
 
     public void setCategory(CategoryResponseDTO category) {
         this.category = category;
-    }
-
-    public String getChannelName() {
-        return channelName;
-    }
-
-    public void setChannelName(String channelName) {
-        this.channelName = channelName;
-    }
-
-    public String getChannelIconName() {
-        return channelIconName;
-    }
-
-    public void setChannelIconName(String channelIconName) {
-        this.channelIconName = channelIconName;
     }
 
     public Resource getChannelIcon() {

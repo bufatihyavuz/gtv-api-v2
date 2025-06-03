@@ -18,8 +18,6 @@ public interface VideoProjection {
     public Boolean getYtVideo();
     public UserProjection getUser();
     public Set<TagProjection> getTags();
-    public String getChannelName();
-    public String getChannelIconName();
     public String getThumbnail();
     public Integer getRate();
     public CategoryProjection getCategory();

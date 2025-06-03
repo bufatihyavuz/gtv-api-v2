@@ -39,12 +39,6 @@ public class Video extends BaseEntity {
     @Column(name = "yt_video")
     private Boolean ytVideo;
 
-    @Column(name = "channel_name")
-    private String channelName;
-
-    @Column(name = "channel_icon")
-    private String channelIconName;
-
     @Column(name = "thumbnail")
     private String thumbnail;
 
@@ -152,22 +146,6 @@ public class Video extends BaseEntity {
 
     public void setTags(Set<Tag> tags) {
         this.tags = tags;
-    }
-
-    public String getChannelName() {
-        return channelName;
-    }
-
-    public void setChannelName(String channelName) {
-        this.channelName = channelName;
-    }
-
-    public String getChannelIcon() {
-        return channelIconName;
-    }
-
-    public void setChannelIcon(String channelIconName) {
-        this.channelIconName = channelIconName;
     }
 
     public String getThumbnail() {
