@@ -32,7 +32,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.GET, "/videos").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                        .requestMatchers("/auth/login", "/register","/images/**","/categories").permitAll()
+                        .requestMatchers("/auth/login", "/auth/register","/images/**","/categories").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
