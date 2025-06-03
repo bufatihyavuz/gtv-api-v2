@@ -3,6 +3,7 @@ package org.gtvapi.login.jwt;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -29,7 +30,8 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/login", "/register","/videos/","/images/**","/categories").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/videos").permitAll()
+                        .requestMatchers("/auth/login", "/register","/images/**","/categories").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
