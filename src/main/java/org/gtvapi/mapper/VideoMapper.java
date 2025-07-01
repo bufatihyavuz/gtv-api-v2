@@ -39,8 +39,7 @@ public interface VideoMapper {
         dto.setId(userProjection.getId());
         dto.setApproved(userProjection.getApproved());
         dto.setUsername(userProjection.getUsername());
-        dto.setChannelIconName(userProjection.getChannelIconName());
-        dto.setChannelName(userProjection.getChannelName());
+        dto.setChannelIconName(userProjection.getUserIcon());
         return dto;
     }
 }

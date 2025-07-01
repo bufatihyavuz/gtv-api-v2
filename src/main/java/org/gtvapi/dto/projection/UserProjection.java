@@ -6,6 +6,5 @@ public interface UserProjection {
     Boolean getApproved();
     String getUsername();
     String getPassword();
-    String getChannelName();
-    String getChannelIconName();
+    String getUserIcon();
 }

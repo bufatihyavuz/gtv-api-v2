@@ -8,8 +8,7 @@ public class UserResponseDTO {
     private Long id;
     private String username;
     private Boolean approved;
-    private String channelName;
-    private String channelIconName;
+    private String userIcon;
 
     public Long getId() {
         return id;
@@ -39,19 +38,11 @@ public class UserResponseDTO {
         this.username = username;
     }
 
-    public String getChannelName() {
-        return channelName;
-    }
-
-    public void setChannelName(String channelName) {
-        this.channelName = channelName;
-    }
-
     public String getChannelIconName() {
-        return channelIconName;
+        return userIcon;
     }
 
-    public void setChannelIconName(String channelIconName) {
-        this.channelIconName = channelIconName;
+    public void setChannelIconName(String userIcon) {
+        this.userIcon = userIcon;
     }
 }
