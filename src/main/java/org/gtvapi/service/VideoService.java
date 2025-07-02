@@ -1,9 +1,11 @@
 package org.gtvapi.service;
 
 import ch.qos.logback.core.util.StringUtil;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.gtvapi.EntityStatus;
 import org.gtvapi.common.UserContext;
 import org.gtvapi.dto.projection.VideoProjection;
 import org.gtvapi.dto.requestdto.VideoRequestDTO;
@@ -115,5 +117,10 @@ public class VideoService {
     public List<VideoResponseDTO> fetchVideosFromFollowedUsers() {
         User user = UserContext.getCurrentUser();
         return videoMapper.toResponseDTOList(videoRepo.fetchVideosFromFollowedUsers(user.getId()));
+    }
+
+    @Transactional
+    public void deleteVideo(Long videoId) {
+        videoRepo.deleteVideoById(videoId, EntityStatus.DELETED.getCode());
     }
 }

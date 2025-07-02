@@ -4,6 +4,7 @@ import org.gtvapi.dto.projection.VideoProjection;
 import org.gtvapi.entity.Video;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -22,4 +23,7 @@ public interface VideoRepo extends JpaRepository<Video,Long> {
     @Query("SELECT uf.followed.videos FROM UserFollow uf WHERE uf.follower.id = :userId")
     List<VideoProjection> fetchVideosFromFollowedUsers(@Param("userId") Long userId);
 
+    @Modifying
+    @Query("UPDATE Video v SET v.recordStatus = :recordStatus WHERE v.id=:videoId")
+    void deleteVideoById(Long videoId,Integer recordStatus);
 }

@@ -28,6 +28,12 @@ public class VideoController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @DeleteMapping
+    public ResponseEntity<String> deleteVideo(@RequestParam(value = "videoId") Long videoId){
+        videoService.deleteVideo(videoId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @PostMapping("like")
     public ResponseEntity<String> likeVideo(@RequestParam(value = "videoId")  Long videoId) {
         videoService.likeVideo(videoId);
