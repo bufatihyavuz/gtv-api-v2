@@ -55,4 +55,9 @@ public class VideoController {
         return ResponseEntity.ok(videoService.fetchVideosFromFollowedUsers());
     }
 
+    @GetMapping("my-videos")
+    public ResponseEntity<List<VideoResponseDTO>> myVideos() {
+        return ResponseEntity.ok(videoService.myVideos());
+    }
+
 }

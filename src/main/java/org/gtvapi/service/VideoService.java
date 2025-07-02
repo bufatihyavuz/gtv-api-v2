@@ -123,4 +123,9 @@ public class VideoService {
     public void deleteVideo(Long videoId) {
         videoRepo.deleteVideoById(videoId, EntityStatus.DELETED.getCode());
     }
+
+    public List<VideoResponseDTO> myVideos() {
+        User user = UserContext.getCurrentUser();
+        return videoMapper.toResponseDTOList(videoRepo.myVideos(user.getId()));
+    }
 }
