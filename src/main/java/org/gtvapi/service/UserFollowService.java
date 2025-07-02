@@ -36,7 +36,7 @@ public class UserFollowService {
         return isUserFollow(followerUser.getId(), followedId) != null;
     }
 
-    private void saveUserFollow(Long followedId, Long followerId) {
+    private void saveUserFollow(Long followerId, Long followedId) {
         UserFollow userFollow = UserFollow.builder()
                 .follower(new User(followerId))
                 .followed(new User(followedId))
