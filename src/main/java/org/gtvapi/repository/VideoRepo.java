@@ -14,7 +14,8 @@ public interface VideoRepo extends JpaRepository<Video,Long> {
 
     @EntityGraph(attributePaths =  {"tags", "category", "user"})
     @Query(value = "SELECT v FROM Video v WHERE " +
-            " v.category.code = :categoryCode OR :categoryCode IS null")
+            " (v.category.code = :categoryCode OR :categoryCode IS null) " +
+            " AND v.recordStatus = 1")
     List<VideoProjection> getAll(String categoryCode);
 
     @Query("SELECT ul.video FROM UserLike ul WHERE ul.user.id = :userId")

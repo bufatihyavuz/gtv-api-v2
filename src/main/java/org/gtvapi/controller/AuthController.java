@@ -1,5 +1,7 @@
 package org.gtvapi.controller;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -42,10 +44,14 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<String> logout() {
-        // (isteğe bağlı) token blackliste alınabilir
-        logger.info("logout yapıldı");
-        return ResponseEntity.ok().body("Logged out");
+    public ResponseEntity<Void> logout(HttpServletResponse response) {
+        Cookie cookie = new Cookie("token", null);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(false); // HTTPS kullanıyorsan true yap
+        cookie.setPath("/");
+        cookie.setMaxAge(0); // Sil
+        response.addCookie(cookie);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/register")
