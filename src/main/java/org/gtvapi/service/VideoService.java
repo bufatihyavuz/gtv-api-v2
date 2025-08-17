@@ -126,6 +126,6 @@ public class VideoService {
 
     public List<VideoResponseDTO> myVideos() {
         User user = UserContext.getCurrentUser();
-        return videoMapper.toResponseDTOList(videoRepo.myVideos(user.getId(), EntityStatus.DELETED.getCode()));
+        return videoMapper.toResponseDTOList(videoRepo.myVideos(user.getId(), EntityStatus.ACTIVE.getCode()));
     }
 }
