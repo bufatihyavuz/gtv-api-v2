@@ -28,6 +28,6 @@ public interface VideoRepo extends JpaRepository<Video,Long> {
     @Query("UPDATE Video v SET v.recordStatus = :recordStatus WHERE v.id=:videoId")
     void deleteVideoById(Long videoId,Integer recordStatus);
 
-    @Query("SELECT v FROM Video v WHERE v.user.id = :userId")
-    List<VideoProjection> myVideos(Long userId);
+    @Query("SELECT v FROM Video v WHERE v.user.id = :userId AND v.recordStatus = :recordStatus")
+    List<VideoProjection> myVideos(Long userId,Integer recordStatus);
 }
